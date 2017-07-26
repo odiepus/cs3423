@@ -1,0 +1,7 @@
+#device		device		mount		FS	fsck	mount	mount
+#to mount	to fsck		point		type	pass	at boot	options
+#
+#/dev/dsk/c1d0s2 /dev/rdsk/c1d0s2 /usr		ufs	1	yes	-
+# ringer.cs.utsa.edu:/usr/local/news	-	/usr/local/news	nfs	-	yes	retry=10	
+#ringer.cs.utsa.edu:/var/spool/news	-	/var/spool/news	nfs	-	yes	retry=10
+#ringer.cs.utsa.edu:/answerbook	-	/answerbook	nfs	-	yes	retry=10

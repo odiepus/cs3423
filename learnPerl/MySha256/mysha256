@@ -1,0 +1,18 @@
+#!/usr/bin/perl -w
+
+
+open(SHFILE, "sha256sum @ARGV |") or die;
+
+
+while (<SHFILE>){
+    if(/([0-9a-z]+) ([a-z]*.*$)/ ){
+        $var1 = $1;
+        $var2 = $2;
+        $var1 =~ s/\s+//;
+        $var2 =~ s/\s+//;
+        print "$var2\t$var1\n";
+    }
+}
+
+
+

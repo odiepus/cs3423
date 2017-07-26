@@ -1,0 +1,100 @@
+#!/usr/bin/perl -w
+
+sub getContent
+{
+    my($item, $regex) = @_;
+    open(F, $item) or die;
+    while(<F>)
+    {
+        if (/$regex/)
+        {
+            push @found, $_;
+        }
+    }
+    return @found;
+}
+
+
+
+$regex = shift;
+
+if ($regex eq "-f")
+{
+    $regex = shift;
+
+while(@ARGV != 0){
+        $item = shift;
+        if (-f $item && -T $item)
+        {
+            chomp @item;
+            @cont = getContent($item, $regex);
+            if (@cont != 0)
+            {
+                print "$item\n";
+            }
+        }
+        else
+        {
+            if(-d $item)
+            {
+                open(F, "find $item |") or next;
+                while($element = <F>)
+                {
+                    push @items, $element;
+                }
+                foreach $x (@items)
+                {
+                    chomp $x;
+                    if(-f $x && -T $x)
+                    {
+                        @content = getContent($x, $regex);
+                        if (@content != 0)
+                        {
+                            print "$x\n";
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+else
+{
+    while(@ARGV != 0){
+            $item = shift;
+            if (-f $item && -T $item)
+            {
+                chomp @item;
+                @cont = getContent($item, $regex);
+                foreach $s (@cont)
+                {
+                    chomp $s;
+                    print "$item:$s\n";
+                }
+            }
+            else
+            {
+                if(-d $item)
+                {
+                    open(F, "find $item |") or next;
+                    while($element = <F>)
+                    {
+                        push @items, $element;
+                    }
+                    foreach $x (@items)
+                    {
+                        chomp $x;
+                        if(-f $x && -T $x)
+                        {
+                            @content = getContent($x, $regex);
+                            foreach $s (@content)
+                            {
+                                chomp $s;
+                                print "$x:$s\n";
+                            }
+                        }
+                    }
+                }
+            }
+        }
+}
